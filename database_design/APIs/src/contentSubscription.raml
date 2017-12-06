@@ -1,0 +1,87 @@
+swagger: '2.0'
+info:
+  description: |
+    This is API design for CMPE226 Spartan-flix - ContentSubscription
+  version: 1.0.0
+  title: CMPE226-ContentSubscription
+  contact:
+    email: bo.liu@sjsu.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+# host: petstore.swagger.io
+# basePath: /v2
+tags:
+- name: ContentSubscription
+  description: Everything about ContentSubscription
+
+paths:
+  /content_subscription:
+    get:
+      tags:
+      - ContentSubscription
+      summary: Get all available subscription plans
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful.
+          schema:
+            $ref: '#/definitions/ContentSubscriptionList'
+        default:
+          description: failed
+          schema:
+            $ref: '#/definitions/Error'
+
+#####################################
+# schema
+#####################################
+definitions:
+
+  ContentSubscriptionList:
+    type: object
+    properties:
+      list:
+        type: array
+        items:
+          $ref: '#/definitions/ContentSubscriptionItem'
+
+  ContentSubscriptionItem:
+    type: object
+    properties:
+      id:
+        type: integer
+      price:
+        type: number
+      duration:
+        type: integer
+      hasAd:
+        type: boolean
+
+  Error:
+    type: object
+    properties:
+        error:
+          type: string
+
+  Success:
+    type: object
+    properties:
+      status:
+        type: string
+
+
+# host: 54.183.66.127:8080
+# basePath: /cmpe273-lab3/User/1.0.0
+# schemes:
+#  - http
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+# basePath: /BoTime/User/1.0.0
+schemes:
+ - https
+ - http
+# Added by API Auto Mocking Plugin
+# basePath: /cmpe273-fantastic5/User/1.0.0
+# Added by API Auto Mocking Plugin
+basePath: /cmpe273-fantastic5/cmpe226-spartan-flix-User/1.0.0

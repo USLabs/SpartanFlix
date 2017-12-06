@@ -1,0 +1,246 @@
+swagger: '2.0'
+info:
+  description: |
+    This is API design for CMPE226 Spartan-flix - Viewer Actions
+  version: 1.0.0
+  title: CMPE226-Viewer Actions
+  contact:
+    email: bo.liu@sjsu.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+# host: petstore.swagger.io
+# basePath: /v2
+tags:
+- name: ViewerActions
+  description: Viewer actions
+
+paths:
+  /watches:
+    get:
+      tags:
+      - ViewerActions
+      summary: Get watch list of the viewer
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: viewerId
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Successful.
+          schema:
+            $ref: '#/definitions/ContentList'
+        400:
+          description: Failed. ViewerId does not exist.
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      tags:
+      - ViewerActions
+      summary: Watch a content
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: viewerId
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Successful.
+          schema:
+            $ref: '#/definitions/ContentItem'
+        400:
+          description: Failed. ViewerId does not exist.
+          schema:
+            $ref: '#/definitions/Error'
+
+  /favorites:
+    get:
+      tags:
+      - ViewerActions
+      summary: Get favorites list of the viewer
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: viewerId
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Successful.
+          schema:
+            $ref: '#/definitions/ContentList'
+        400:
+          description: Failed. ViewerId does not exist.
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      tags:
+      - ViewerActions
+      summary: Add a content to favorite list
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: viewerId
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Successful.
+          schema:
+            $ref: '#/definitions/ContentItem'
+        400:
+          description: Failed. ViewerId does not exist.
+          schema:
+            $ref: '#/definitions/Error'
+
+  /feedback:
+    get:
+      tags:
+      - ViewerActions
+      summary: Provide feedback to a content
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: viewerId
+        required: true
+        type: integer
+      - in: query
+        name: conentId
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Successful.
+          schema:
+            $ref: '#/definitions/FeedbackList'
+        400:
+          description: Failed. ViewerId does not exist.
+          schema:
+            $ref: '#/definitions/Error'
+    post:
+      tags:
+      - ViewerActions
+      summary: Provide feedback to a content
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: viewerId
+        required: true
+        type: integer
+      - in: query
+        name: conentId
+        required: true
+        type: integer
+      responses:
+        200:
+          description: Successful.
+          schema:
+            $ref: '#/definitions/FeedbackItem'
+        400:
+          description: Failed. ViewerId does not exist.
+          schema:
+            $ref: '#/definitions/Error'
+
+
+#####################################
+# schema
+#####################################
+definitions:
+  ContentItem:
+    type: object
+    properties:
+      contentId:
+        type: integer
+      title:
+        type: string
+      director:
+        type: string
+      contentProviderId:
+        type: integer
+      cast:
+        type: array
+        items:
+          $ref: '#/definitions/Actor'
+      contentType:
+        type: string
+      ratings:
+        type: integer
+
+  Actor:
+    type: object
+    properties:
+      id:
+        type: integer
+      firstname:
+        type: string
+      lastname:
+        type: string
+
+  ContentList:
+    type: object
+    properties:
+      list:
+        type: array
+        items:
+          $ref: '#/definitions/ContentItem'
+
+  FeedbackList:
+    type: object
+    properties:
+      list:
+        type: array
+        items:
+          $ref: '#/definitions/FeedbackItem'
+
+  FeedbackItem:
+    type: object
+    properties:
+      feedbackId:
+        type: integer
+      comment:
+        type: string
+
+  LoginRequest:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+
+  Error:
+    type: object
+    properties:
+        error:
+          type: string
+
+  Success:
+    type: object
+    properties:
+      status:
+        type: string
+
+
+# host: 54.183.66.127:8080
+# basePath: /cmpe273-lab3/User/1.0.0
+# schemes:
+#  - http
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+# basePath: /BoTime/User/1.0.0
+schemes:
+ - https
+ - http
+# Added by API Auto Mocking Plugin
+# basePath: /cmpe273-fantastic5/User/1.0.0
+# Added by API Auto Mocking Plugin
+basePath: /cmpe273-fantastic5/cmpe226-spartan-flix-User/1.0.0

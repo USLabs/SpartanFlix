@@ -1,0 +1,166 @@
+swagger: '2.0'
+info:
+  description: |
+    This is API design for CMPE226 Spartan-flix - AdSubscription
+  version: 1.0.0
+  title: CMPE226-AdSubscription
+  contact:
+    email: bo.liu@sjsu.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+# host: petstore.swagger.io
+# basePath: /v2
+tags:
+- name: AdSubscription
+  description: Everything about AdSubscription
+
+paths:
+  /ad_subscription/all:
+    get:
+      tags:
+      - AdSubscription
+      summary: Get all advertisement subcription plans
+      produces:
+      - application/json
+      - application/xml
+      parameters: []
+      responses:
+        200:
+          description: successful
+          schema:
+            $ref: '#/definitions/AdSubscriptionList'
+        default:
+          description: failed
+          schema:
+            $ref: '#definitions/Error'
+
+  /ad_subscription/advertiser/{advertiserId}:
+    get:
+      tags:
+      - AdSubscription
+      summary: Get advertisement subscription plan of the advertiser
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: advertiserId
+        in: path
+        required: true
+        type: integer
+      responses:
+        200:
+          description: successful
+          schema:
+            $ref: '#/definitions/AdSubscriptionItem'
+        default:
+          description: failed
+          schema:
+            $ref: '#/definitions/Error'
+
+    post:
+      tags:
+      - AdSubscription
+      summary: Subscribe to AdSubcription plan
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: advertiserId
+        in: path
+        required: true
+        type: integer
+      - in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/AdSubscriptionItem'
+      responses:
+        200:
+          description: successful
+          schema:
+            $ref: '#/definitions/AdSubscriptionItem'
+        default:
+          description: failed
+          schema:
+            $ref: '#definitions/Error'
+
+    put:
+      tags:
+      - AdSubscription
+      summary: Update AdSubcription plan of the advertiser
+      produces:
+      - application/json
+      - application/xml
+      parameters:
+      - name: advertiserId
+        in: path
+        required: true
+        type: integer
+      - in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/AdSubscriptionItem'
+      responses:
+        200:
+          description: successful
+          schema:
+            $ref: '#/definitions/AdSubscriptionItem'
+        default:
+          description: failed
+          schema:
+            $ref: '#definitions/Error'
+
+#####################################
+# schema
+#####################################
+definitions:
+
+  AdSubscriptionItem:
+    type: object
+    properties:
+      id:
+        type: integer
+      price:
+        type: number
+      duration:
+        type: number
+      title:
+        type: string
+
+  AdSubscriptionList:
+    type: object
+    properties:
+      results:
+        type: array
+        items:
+          $ref: '#/definitions/AdSubscriptionItem'
+
+  Error:
+    type: object
+    properties:
+        error:
+          type: string
+
+  Success:
+    type: object
+    properties:
+      status:
+        type: string
+
+
+# host: 54.183.66.127:8080
+# basePath: /cmpe273-lab3/User/1.0.0
+# schemes:
+#  - http
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+# basePath: /BoTime/User/1.0.0
+schemes:
+ - https
+ - http
+# Added by API Auto Mocking Plugin
+# basePath: /cmpe273-fantastic5/User/1.0.0
+# Added by API Auto Mocking Plugin
+basePath: /cmpe273-fantastic5/cmpe226-spartan-flix-User/1.0.0

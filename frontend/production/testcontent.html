@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sign Up</title>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="../production/js/viewerLoginScript.js"></script>
+</head>
+
+<body>
+   
+
+        <h1>Sign Up</h1>
+        
+        <fieldset>
+          
+        
+          <label for="mail">Email:</label>
+          <input type="email" id="mail" name="user_email">
+
+          <label for="name">First Name:</label>
+          <input type="text" id="fname" name="first_name">
+          
+          <label for="name">Last Name:</label>
+          <input type="text" id="lname" name="last_name">
+          
+          
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="user_password">
+          
+        </fieldset>
+        
+        <fieldset>
+          <legend><span class="number">2</span>Your profile</legend>
+          <label for="bio">Biography:</label>
+          <textarea id="bio" name="user_bio"></textarea>
+        </fieldset>
+
+        <fieldset>
+        <label for="subscription">Subscription</label>
+        <select id="subscription" name="subscription_type">
+          <optgroup label="Type of Subscriptions">
+            <option value="1">Subscription With Movies</option>
+            <option value="2">Subscription With Series</option>
+            <option value="3">Subscription With Documnetry</option>
+          </optgroup>
+        </select>
+
+        <input type="" name="" $viewercontent.FirstName />
+        
+        </fieldset>
+
+        <fieldset>
+          <label>Interests:</label>
+          <input type="checkbox" id="development" value="interest_development" name="user_interest"><label class="light" for="development">Development</label><br>
+            <input type="checkbox" id="design" value="interest_design" name="user_interest"><label class="light" for="design">Design</label><br>
+          <input type="checkbox" id="business" value="interest_business" name="user_interest"><label class="light" for="business">Business</label>
+        
+        </fieldset>
+        <button type="submit" id="signup">Sign Up</button>
+      
+       <button type="submit" id="signin">Sign In</button>
+      
+    </body>
+</html>
+  

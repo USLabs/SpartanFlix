@@ -1,0 +1,225 @@
+swagger: '2.0'
+info:
+  description: |
+    This is API design for CMPE226 Spartan-flix - Content
+  version: 1.0.0
+  title: CMPE226-Content
+  contact:
+    email: bo.liu@sjsu.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+# host: petstore.swagger.io
+# basePath: /v2
+tags:
+- name: content
+  description: Everything about Content
+
+# create content: use actor id or full information?
+
+
+paths:
+  /content/{contentId}:
+    get:
+      tags:
+      - content
+      summary: "Find content by ID"
+      description: "Returns a single content"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "contentId"
+        in: "path"
+        description: "ID of content to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ContentItem"
+        400:
+          description: "Invalid ID supplied"
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      tags:
+      - content
+      summary: "Delete content by ID"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "contentId"
+        in: "path"
+        description: "ID of content to delete"
+        required: true
+        type: "integer"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ContentItem"
+        400:
+          description: "Invalid ID supplied"
+          schema:
+            $ref: '#/definitions/Error'
+  /content:  
+    post:
+      tags:
+      - content
+      summary: "Create content"
+      description: "Create a single content"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ID of content to return"
+        required: true
+        schema:
+          $ref: "#/definitions/ContentItemNoId"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ContentList"
+        default:
+          description: "Failed to create content"
+          schema:
+            $ref: '#/definitions/Error'
+  /content/all:
+    get:
+      tags:
+      - content
+      summary: "Get all available content"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation, will return 5 ~ 10 pieces of content"
+          schema:
+            $ref: "#/definitions/ContentList"
+        404:
+          description: "Invalid ID supplied"
+          schema:
+            $ref: '#/definitions/Error'
+            
+  /content/search:
+    get:
+      tags:
+      - content
+      summary: "Search content"
+      description: Search content by director/actor/year/contentType
+      produces:
+      - "application/json"
+      parameters:
+      - name: directorName
+        in: query
+        required: true
+        type: string
+      - name: actorName
+        in: query
+        required: true
+        type: string
+      - name: year
+        in: query
+        required: true
+        type: string
+      - name: contentType
+        in: query
+        required: true
+        type: string
+      responses:
+        200:
+          description: "successful operation, will return 5 ~ 10 pieces of content"
+          schema:
+            $ref: "#/definitions/ContentList"
+        404:
+          description: "Invalid ID supplied"
+          schema:
+            $ref: '#/definitions/Error'
+  
+#####################################
+# schema 
+#####################################
+definitions:
+
+  ContentList:
+    type: array
+    items:
+      $ref: '#/definitions/ContentItem'
+      
+  ContentItem:
+    type: object
+    properties:
+      contentId:
+        type: integer
+      title:
+        type: string
+      director:
+        type: string
+      contentProviderId:
+        type: integer
+      cast: 
+        type: array
+        items:
+          $ref: '#/definitions/Actor'
+      contentType: 
+        type: string
+  
+  ContentItemNoId:
+    type: object
+    properties:
+      contentId:
+        type: integer
+      title:
+        type: string
+      director:
+        type: string
+      contentProviderId:
+        type: integer
+      cast: 
+        type: array
+        items:
+          $ref: '#/definitions/Actor'
+      contentType: 
+        type: string
+        
+  Actor:
+    type: object
+    properties:
+      id:
+        type: integer
+      firstname: 
+        type: string
+      lastname: 
+        type: string
+        
+  Error:
+    type: object
+    properties:
+        error: 
+          type: string
+  
+  Success:
+    type: object
+    properties:
+      status:
+        type: string
+        
+
+# host: 54.183.66.127:8080
+# basePath: /cmpe273-lab3/User/1.0.0
+# schemes:
+#  - http
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+# basePath: /BoTime/User/1.0.0
+schemes:
+ - https
+ - http
+# Added by API Auto Mocking Plugin
+# basePath: /cmpe273-fantastic5/User/1.0.0
+# Added by API Auto Mocking Plugin
+basePath: /cmpe273-fantastic5/cmpe226-spartan-flix-User/1.0.0

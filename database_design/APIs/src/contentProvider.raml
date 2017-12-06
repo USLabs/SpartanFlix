@@ -1,0 +1,223 @@
+swagger: '2.0'
+info:
+  description: |
+    This is API design for CMPE226 Spartan-flix - ContentProvider
+  version: 1.0.0
+  title: CMPE226-ContentProvider
+  contact:
+    email: bo.liu@sjsu.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+# host: petstore.swagger.io
+# basePath: /v2
+tags:
+- name: ContentProvider
+  description: Everything about ContentProvider
+
+paths:
+  /content_provider/signup:
+    post:
+      tags:
+      - ContentProvider
+      summary: Create a ContentProvider
+      description: This can only be done at sign up time
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Created ContentProvider object
+        required: true
+        schema:
+          $ref: '#/definitions/ContentProvider'
+      responses:
+        200:
+          description: Successful.
+          schema:
+            $ref: '#/definitions/ContentProviderNoPassword'
+        default:
+          description: Failed. Email already exists.
+          schema:
+            $ref: '#definitions/Error'
+
+  /content_provider/login:
+    post:
+      tags:
+      - ContentProvider
+      summary: Logs user into the system
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/LoginRequest'
+      responses:
+        200:
+          description: successful
+          schema:
+            $ref: '#/definitions/ContentProviderNoPassword'
+        400:
+          description: Invalid username/password
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: failed
+          schema:
+            $ref: '#/definitions/Error'
+
+  /content_provider/getLogout:
+    get:
+      tags:
+      - ContentProvider
+      operationId: logoutUser
+      produces:
+      - application/json
+      - application/xml
+      parameters: []
+      responses:
+        200:
+          description: successful
+          schema:
+            $ref: '#definitions/Success'
+        default:
+          description: failed
+          schema:
+            $ref: '#definitions/Error'
+
+  /content_provider/{contentProviderId}:
+    get:
+      tags:
+      - ContentProvider
+      summary: Get content provider information
+      produces:
+      - application/json
+      parameters:
+      - name: contentProviderId
+        in: path
+        required: true
+        type: integer
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ContentProviderNoPassword'
+        400:
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+
+  /content_provider/upload:
+    post:
+      tags:
+      - ContentProvider
+      summary: Get content provider information
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        schema:
+          $ref: '#/definitions/ContentItem'
+      responses:
+        200:
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ContentProviderNoPassword'
+        400:
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+
+#####################################
+# schema
+#####################################
+definitions:
+
+  ContentProvider:
+    type: object
+    properties:
+      id:
+        type: integer
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+
+  ContentProviderNoPassword:
+    type: object
+    properties:
+      id:
+        type: integer
+      email:
+        type: string
+      name:
+        type: string
+
+  ContentItem:
+    type: object
+    properties:
+      contentId:
+        type: integer
+      title:
+        type: string
+      director:
+        type: string
+      contentProviderId:
+        type: integer
+      cast:
+        type: array
+        items:
+          $ref: '#/definitions/Actor'
+      contentType:
+        type: string
+
+  Actor:
+    type: object
+    properties:
+      id:
+        type: integer
+      firstname:
+        type: string
+      lastname:
+        type: string
+
+  LoginRequest:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+
+  Error:
+    type: object
+    properties:
+        error:
+          type: string
+
+  Success:
+    type: object
+    properties:
+      status:
+        type: string
+
+
+# host: 54.183.66.127:8080
+# basePath: /cmpe273-lab3/User/1.0.0
+# schemes:
+#  - http
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+# basePath: /BoTime/User/1.0.0
+schemes:
+ - https
+ - http
+# Added by API Auto Mocking Plugin
+# basePath: /cmpe273-fantastic5/User/1.0.0
+# Added by API Auto Mocking Plugin
+basePath: /cmpe273-fantastic5/cmpe226-spartan-flix-User/1.0.0
